@@ -105,8 +105,8 @@ namespace hangman_game
 
             Random random = new Random();
             List<String> wordDictionary = new List<String> { "town", "aspect", "health", "nature", "farmer", "quality",
-                                                             "desk", "leader", "movie", "bread", "client",
-                                                             "memory", "topic" };
+                                                             "desk", "leader", "movie", "bread", "client", "memory",
+                                                             "topic" };
             int index = random.Next(wordDictionary.Count);
             String randomWord = wordDictionary[index];
 
@@ -164,7 +164,6 @@ namespace hangman_game
                     }
                 }
             }
-
             Console.WriteLine("\r\nGame is over! Thank you for playing :)");
         }
     }
