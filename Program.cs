@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using static System.Random;
 using System.Text;
+using System.IO;
 
 namespace hangman_game
 {
     class Program
     {
+        // Prints the hangman
         private static void printHangman(int wrong)
         {
             if (wrong == 0)
@@ -67,6 +69,7 @@ namespace hangman_game
             }
         }
 
+        // Prints the word
         private static int printWord(List<char>guessedLetters, String randomWord)
         {
             int counter = 0;
@@ -88,6 +91,7 @@ namespace hangman_game
             return rightLetters;
         }
 
+        // Prints lines under the word
         private static void printLines(String randomWord)
         {
             Console.Write("\r");
@@ -101,12 +105,36 @@ namespace hangman_game
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to hangman :)");
-            Console.WriteLine("-----------------------------------------------");
+            Console.WriteLine("--------------------------------------");
+            Console.WriteLine("Choose difficulty: ");
+            Console.WriteLine("1) Easy (4 letters)");
+            Console.WriteLine("2) Medium (5-6 letters)");
+            Console.WriteLine("3) Hard (7 letters)");
+            char diff = Console.ReadLine()[0];
 
+            // Choose a file with words depending on user's choice
+            string path = "";
+            switch (diff)
+            {
+                case '1':
+                    path = "../../../words/easy.txt";
+                    break;
+                case '2':
+                    path = "../../../words/medium.txt";
+                    break;
+                case '3':
+                    path = "../../../words/hard.txt";
+                    break;
+                default:
+                    break;
+            }
+
+            // Read file and create list with words from the file
+            var logFile = File.ReadAllLines(path);
+            var wordDictionary = new List<string>(logFile);
+            
+            // Pick random words from the list
             Random random = new Random();
-            List<String> wordDictionary = new List<String> { "town", "aspect", "health", "nature", "farmer", "quality",
-                                                             "desk", "leader", "movie", "bread", "client", "memory",
-                                                             "topic" };
             int index = random.Next(wordDictionary.Count);
             String randomWord = wordDictionary[index];
 
@@ -164,7 +192,19 @@ namespace hangman_game
                     }
                 }
             }
-            Console.WriteLine("\r\nGame is over! Thank you for playing :)");
+
+            Console.WriteLine("\r\n");
+            // Check if user wins or loses
+            if (currentLettersRight == lengthOfWordToGuess)
+            {
+                Console.WriteLine("\r\nGame is over! You WIN! :) :) :)");
+                Console.WriteLine("\r\nThank you for playing!");
+            }
+            else
+            {
+                Console.WriteLine("\r\nGame is over! You LOSE! :( :( :(");
+                Console.WriteLine("\r\nThank you for playing!");
+            }
         }
     }
 }
