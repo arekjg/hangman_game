@@ -1,5 +1,5 @@
 # Hangman game
 
 <!---
-Add choosing difficulty and reading words from txt file
+catch exception error when user chooses difficulty other than 1, 2 or 3
 --->
